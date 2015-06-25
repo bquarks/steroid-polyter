@@ -4,7 +4,7 @@
 (function () {
 
   Polymer({
-    is: 'poly-ter',
+    is: 'bq-polyter',
 
     routes: {},
 

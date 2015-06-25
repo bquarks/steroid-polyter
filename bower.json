@@ -1,19 +1,26 @@
 {
-  "name": "poly-ter",
-  "version": "1.0.0",
+  "name": "bq-polyter",
+  "version": "0.8.1",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Mundo Reader S.L"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "An element providing routes handling with polymer",
   "keywords": [
     "web-component",
     "web-components",
     "polymer",
-    "seed"
+    "router",
+    "routes",
+    "polyter",
+    "page.js",
+    "hooks",
+    "extensions",
+    "controller",
+    "layout"
   ],
-  "main": "poly-ter.html",
-  "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "main": "bq-polyter.html",
+  "license": "https://github.com/bquarks/polyter/blob/master/LICENSE",
+  "homepage": "https://github.com/bquarks/polyter",
   "ignore": [
     "/.*",
     "/test/",
