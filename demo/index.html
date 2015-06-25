@@ -28,6 +28,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </poly-ter>
   <script type="text/javascript">
     window.addEventListener('WebComponentsReady', function () {
+      Polyter.defaultConfig({
+        layoutElements: {
+          sidebar: 'page-demo2'
+        }
+      });
+
       Polyter.addRoute('/components/poly-ter/demo/', {
 
         element: 'page-demo',

@@ -12,6 +12,8 @@
 
     defaultElements: {},
 
+    _defaultRendered: false,
+
     previousRoute: null,
 
     //Route lifecycle
@@ -26,8 +28,7 @@
       page.redirect(route);
     },
 
-    //HOOKS
-
+    //This hook run before start loading things.
     run: function (route) {
 
       if (route && route.run) {
@@ -37,6 +38,7 @@
       return this._stopped;
     },
 
+    //Here you have the extensions instances
     before: function (route) {
 
       if (route && route.before) {
@@ -46,6 +48,7 @@
       return this._stopped;
     },
 
+    //Here you have the element instances
     action: function (route) {
         if (route && route.action) {
             route.action.call(this);
@@ -54,6 +57,7 @@
         return this._stopped;
     },
 
+    //Here the elements are rendered
     after: function (route, routeName) {
 
       if (route && route.after) {
@@ -63,6 +67,7 @@
       return this._stopped;
     },
 
+    //Before stop the route
     onStop: function (routeName) {
       this.stopped = false;
       var pRoute = this.routes[this.previousRoute];
@@ -106,10 +111,30 @@
 
     },
 
+    _instantiateDef: function () {
+      for (var region in this.defaultElements) {
+        if (this.defaultElements.hasOwnProperty(region)) {
+          var name = this.defaultElements[region];
+
+          this._instantiate(name);
+        }
+      }
+    },
+
     _instantiate: function (elementName) {
       this.instances[elementName] = document.createElement(elementName);
       this.instances[elementName].name = elementName;
       _.extend(this.instances[elementName], this);
+    },
+
+    _renderDef: function () {
+      for (var region in this.defaultElements) {
+        if (this.defaultElements.hasOwnProperty(region)) {
+          var name = this.defaultElements[region];
+
+          this._render(name, region);
+        }
+      }
     },
 
     _render: function (elementName, region) {
@@ -169,6 +194,10 @@
         }
         else {
 
+          //TODO: make this more clean
+          if (!_this._defaultRendered) {
+            _this._instantiateDef();
+          }
 
           _this._instantiate(route.element);
 
@@ -176,6 +205,12 @@
             return;
           }
           _this._clearInstances(route.element);
+
+          //TODO: make this more clean
+          if (!_this._defaultRendered) {
+            _this._renderDef();
+            _this._defaultRendered = true;
+          }
 
           _this._render(route.element, route.region);
         }
@@ -186,7 +221,20 @@
 
       });
 
+      //TODO: not call everytime!
       page.start();
+
+    },
+
+    defaultConfig: function (options) {
+      //Load layoutElements
+      if (!options) return;
+
+      var layEl = options.layoutElements;
+
+      if (layEl) {
+        this.defaultElements = layEl;
+      }
 
     }
 
