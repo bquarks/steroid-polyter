@@ -31,14 +31,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       Polyter.defaultConfig({
         layoutElements: {
           sidebar: 'page-demo2'
-        }
+        },
+
+        extensions: ['page-demo3'],
       });
 
       Polyter.addRoute('/components/poly-ter/demo/', {
 
         element: 'page-demo',
 
-        //extensions: ['my-greeting'],
+        extensions: ['my-greeting'],
 
         run: function () {
           console.log('run');

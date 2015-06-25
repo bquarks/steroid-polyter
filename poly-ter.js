@@ -12,6 +12,8 @@
 
     defaultElements: {},
 
+    defaultExtensions: null,
+
     _defaultRendered: false,
 
     previousRoute: null,
@@ -88,13 +90,22 @@
 
     _injectExtensions: function (extName) {
       if (extName instanceof Array) {
-        for (var i = extName.length; i-- > 0;) {
-          if (!this.ext[extName[i]]) {
-            this.ext[extName[i]] = document.createElement(extName);
-            //TODO: add factoryImpl call.
-          }
+
+        if (this.defaultExtensions) {
+          extName = _.union(extName, this.defaultExtensions);
         }
       }
+      else {
+        extName = this.defaultExtensions;
+      }
+
+      for (var i = extName.length; i-- > 0;) {
+        if (!this.ext[extName[i]]) {
+          this.ext[extName[i]] = document.createElement(extName[i]);
+          //TODO: add factoryImpl call.
+        }
+      }
+
     },
 
     _clearInstances: function (elementName) {
@@ -234,6 +245,10 @@
 
       if (layEl) {
         this.defaultElements = layEl;
+      }
+
+      if (options.extensions instanceof Array) {
+        this.defaultExtensions = options.extensions;
       }
 
     }
