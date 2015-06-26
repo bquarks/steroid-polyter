@@ -36,7 +36,8 @@
     "lodash": "latest"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "web-component-tester": "*"
+    "iron-component-page": "PolymerElements/iron-component-page#latest",
+    "web-component-tester": "*",
+    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#~1.0.2"
   }
 }

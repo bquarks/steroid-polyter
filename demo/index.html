@@ -15,130 +15,147 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <title>Polyter Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <link rel="import" href="../bq-polyter.html">
-    <link rel="import" href="page-demo.html">
-    <link rel="import" href="page-demo2.html">
+    <link rel="import" href="pages/start-page.html">
   </head>
   <body>
-
-    <p>An example of <code>&lt;poly-ter&gt;</code>: <a href="demo2">Click here for see router action</a></p>
-
     <bq-polyter>
-      <div id="sidebar"></div>
-      <div id="main"></div>
+      <div region="sidebar"></div>
+      <div region="main"></div>x
     </bq-polyter>
-  <script type="text/javascript">
-    window.addEventListener('WebComponentsReady', function () {
-      Polyter.defaultConfig({
-        layoutElements: {
-          sidebar: 'page-demo2'
-        },
+    <script type="text/javascript">
+      window.addEventListener('WebComponentsReady', function () {
+        // Polyter.go('home', {trigger:false});
 
-        extensions: ['page-demo3'],
+        Polyter.defaultConfig({
+        //   layoutElements: {
+        //     // sidebar: 'menu-principal',
+        //     // header: 'beatiful-header'
+        //   },
+        //
+            extensions: [],
+        });
+
+        Polyter.addRoute('/components/bq-polyter/demo/', {
+
+          element: 'start-page',
+
+          // layoutElements: {
+          //   sidebar: 'visor-menu'
+          // },
+          // layout: {
+          //   name: 'my-visor',
+          //   regions: {
+          //     tools: ''
+          //   }
+          // }
+
+          // extensions: ['my-greeting'],
+
+          run: function () {
+            console.log('run');
+          },
+
+          before: function () {
+            console.log('before');
+          },
+
+          action: function () {
+            console.log('action');
+          },
+
+          after: function () {
+            console.log('after');
+          }
+          // Optional elements (can be setted by default).
+          // elements: {
+          //   'mainMenu' : 'sidebar', //Optional
+          // },
+          //
+          // extensions: ['corbel'],
+          //
+          // run: function () {
+          //   //this have the route scope with the params
+          //
+          //   //Access to the params.
+          //   console.log('Route params', this.params);
+          //
+          //   //Stop the route propagation
+          //   this.stop();
+          //
+          //   //Redirect to other route (also stop the route propagation)
+          //   this.redirect('/login');
+          //
+          //   //Get the previous route!
+          //   console.log('Previous route: ' + this.previousRoute);
+          //
+          // },
+          //
+          // before: function () {
+          //   //Same as above but now we have the extensions injection here.
+          //
+          //   //Get example extension information.
+          //   var doc = this.ext.corbel.find(this.params.id);
+          //
+          //   if (doc.isValid) {
+          //     // do something
+          //     this.ext.push.send('book-opened', this.params.id);
+          //   }
+          //   else {
+          //     this.redirect('/error-404');
+          //   }
+          //
+          //
+          //   // Maintain the route but change the element to render.
+          //   if (!this.ext.auth.isLoggedIn) {
+          //     this.render('my-login', 'main');
+          //   }
+          //
+          // },
+          //
+          // action: function () {
+          //   //Same as above but now we have the instances of the defined elements
+          //
+          //   //Get the element instance
+          //   var insPointer = this.instances['start-page'];
+          //
+          //   //Comes from other book?
+          //   if (this.previousRoute === this.route) {
+          //     //Add additional information to the element instance
+          //     // so we can render it with other view.
+          //     insPointer.fromOtherBook();
+          //   }
+          //
+          //
+          // },
+          //
+          // after: function () {
+          //   //Here we have the elements rendered
+          //   this.instances['page-demo'].changeTitle('new title'); //rules!
+          //
+          //   //Also we can do the other things but no this.render()
+          //
+          // },
+          //
+          // stop: function () {
+          //   //The route has been changed! Put some information
+          //   // here for the next route.
+          //
+          //   this.setAdditionalInfo({previousBookID: this.params.id});
+          // }
+        });
+
+        Polyter.addRoute('/components/bq-polyter/demo/demo2', {
+          element: 'page-demo2'
+        });
+
+        Polyter.addRoute('/', {
+          element: 'home'
+        });
+
+        Polyter.addRoute('/book', {
+          element: 'page-book'
+        });
       });
-
-      Polyter.addRoute('/components/poly-ter/demo/', {
-
-        element: 'page-demo',
-
-        extensions: ['my-greeting'],
-
-        run: function () {
-          console.log('run');
-        },
-
-        before: function () {
-          console.log('before');
-        },
-
-        action: function () {
-          console.log('action');
-        },
-
-        after: function () {
-          console.log('after');
-        }
-        //Optional elements (can be setted by default).
-        // elements: {
-        //   'mainMenu' : 'sidebar', //Optional
-        // },
-        //
-        // extensions: ['corbel'],
-        //
-        // run: function () {
-        //   //this have the route scope with the params
-        //
-        //   //Access to the params.
-        //   console.log('Route params', this.params);
-        //
-        //   //Stop the route propagation
-        //   this.stop();
-        //
-        //   //Redirect to other route (also stop the route propagation)
-        //   this.redirect('/login');
-        //
-        //   //Get the previous route!
-        //   console.log('Previous route: ' + this.previousRoute);
-        //
-        // },
-        //
-        // before: function () {
-        //   //Same as above but now we have the extensions injection here.
-        //
-        //   //Get example extension information.
-        //   var doc = this.ext.corbel.find(this.params.id);
-        //
-        //   if (doc.isValid) {
-        //     // do something
-        //     this.ext.push.send('book-opened', this.params.id);
-        //   }
-        //   else {
-        //     this.redirect('/error-404');
-        //   }
-        //
-        //
-        //   // Maintain the route but change the element to render.
-        //   if (!this.ext.auth.isLoggedIn) {
-        //     this.render('login', 'main');
-        //   }
-        //
-        // },
-        //
-        // action: function () {
-        //   //Same as above but now we have the instances of the defined elements
-        //
-        //   //Get the element instance
-        //   var insPointer = this.actual['page-demo'];
-        //
-        //   //Comes from other book?
-        //   if (this.previousRoute === this.route) {
-        //     //Add additional information to the element instance
-        //     // so we can render it with other view.
-        //     insPointer.fromOtherBook();
-        //   }
-        //
-        //
-        // },
-        //
-        // after: function () {
-        //   //Here we have the elements rendered
-        //   this.actual['page-demo'].changeTitle('new title'); //rules!
-        //
-        //   //Also we can do the other things but no this.render()
-        //
-        // },
-        //
-        // stop: function () {
-        //   //The route has been changed! Put some information
-        //   // here for the next route.
-        //
-        //   this.setAdditionalInfo({previousBookID: this.params.id});
-        // }
-      });
-
-      Polyter.addRoute('/components/poly-ter/demo/demo2', {
-        element: 'page-demo2'
-      });
-    });
-  </script>
+    </script>
   </body>
 </html>
