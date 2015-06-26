@@ -15,6 +15,7 @@ Polymer({
 
   //Route lifecycle
   _stopped: false,
+  _triggered: false,
 
   stop: function () {
     this._stopped = true;
@@ -175,6 +176,10 @@ Polymer({
     console.log('Adding route! ', routeName);
     page(routeName, function (ctx) {
 
+      if (_this._triggered) {
+        _this._triggered = false;
+        return;
+      }
       console.log('Entra en la ruta ' + routeName);
 
       _this.onStop(routeName);
@@ -252,7 +257,10 @@ Polymer({
 
   go: function (route, options) { //TODO: {trigger: false, ...};
     if (route) {
-      this.stop();
+      //this.stop();
+      if (options && options.trigger) {
+        this._triggered = true;
+      }
       page(route);
     }
   }
