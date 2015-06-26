@@ -8,31 +8,37 @@ The complete set of contributors may be found at http://polymer.github.io/CONTRI
 Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
-<html>
+<html style="width: 100%; height: 100%;">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Polyter Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+
     <link rel="import" href="../bq-polyter.html">
     <link rel="import" href="pages/start-page.html">
+    <link rel="import" href="pages/product-example.html">
+    <link rel="import" href="layouts/top-navigation.html">
+    <link rel="import" href="layouts/side-bar.html">
+
   </head>
-  <body>
-    <bq-polyter>
-      <div region="sidebar"></div>
-      <div region="main"></div>x
+  <body style="margin: 0; width: 100%; height: 100%;">
+    <bq-polyter style="position: absolute; width:100%; height:100%;">
+      <div region="header" style="width: 100%; height: 60px; position: fixed;"></div>
+      <div region="sidebar" style="height: 100%; width: 60px; position: fixed;"></div>
+      <div region="main" style="width: calc( 100% - 60px ); height: calc( 100% - 60px ); position: absolute; margin: 60px 0 0 60px;"></div>x
     </bq-polyter>
     <script type="text/javascript">
       window.addEventListener('WebComponentsReady', function () {
         // Polyter.go('home', {trigger:false});
 
         Polyter.defaultConfig({
-        //   layoutElements: {
-        //     // sidebar: 'menu-principal',
-        //     // header: 'beatiful-header'
-        //   },
-        //
-            extensions: [],
+          layoutElements: {
+            sidebar: 'side-bar',
+            header: 'top-navigation'
+          },
+
+          extensions: [],
         });
 
         Polyter.addRoute('/components/bq-polyter/demo/', {
@@ -144,12 +150,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // }
         });
 
-        Polyter.addRoute('/components/bq-polyter/demo/demo2', {
-          element: 'page-demo2'
+        Polyter.addRoute('/components/bq-polyter/demo/quick', {
+          element: 'product-example'
         });
 
-        Polyter.addRoute('/', {
-          element: 'home'
+        Polyter.addRoute('/components/bq-polyter/demo/doc', {
+          element: 'product-doc'
         });
 
         Polyter.addRoute('/book', {

@@ -106,12 +106,12 @@ Polymer({
 
   _clearInstances: function (elementName) {
     var instances = Object.getOwnPropertyNames(this.instances),
-        def = Object.getOwnPropertyNames(this.defaultElements);
+        def = _.values(this.defaultElements);
 
     def.push(elementName);
-
+    console.log(def, instances);
     var diff = _.difference(instances, def);
-
+    console.log(diff);
     for (var i = diff.length; i-- > 0;) {
       this.instances[diff[i]].remove();
     }
