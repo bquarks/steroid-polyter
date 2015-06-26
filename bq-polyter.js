@@ -157,7 +157,7 @@ Polymer({
 
       _this.schema = {};
 
-      _.each(Polymer.dom(_this.$.schema).getDistributedNodes(), function (el) {
+      _.each(Polymer.dom(_this).querySelectorAll('div[region]'), function (el) {
         var region = el.attributes.region;
         if (region && region.value) {
           _this.schema[region.value] = el;
