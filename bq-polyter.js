@@ -131,6 +131,9 @@ Polymer({
   _instantiate: function (elementName) {
     this.instances[elementName] = document.createElement(elementName);
     this.instances[elementName].name = elementName;
+    //TODO: make this better.
+    this.instances[elementName].ext = this.ext;
+
     _.extend(this.instances[elementName], this);
   },
 

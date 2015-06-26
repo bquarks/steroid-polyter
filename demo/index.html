@@ -14,6 +14,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Polyter Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+    <script>
+      window.Polymer = window.Polymer || {};
+      window.Polymer.dom = 'shadow';
+    </script>
 
     <link rel="import" href="../bq-polyter.html">
     <link rel="import" href="pages/start-page.html">
@@ -26,7 +30,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <bq-polyter style="position: absolute; width:100%; height:100%;">
       <div region="header" style="width: 100%; height: 60px; position: fixed;"></div>
       <div region="sidebar" style="height: 100%; width: 60px; position: fixed;"></div>
-      <div region="main" style="width: calc( 100% - 60px ); height: calc( 100% - 60px ); position: absolute; margin: 60px 0 0 60px;"></div>x
+      <div region="main" style="width: calc( 100% - 60px ); height: calc( 100% - 60px ); position: absolute; margin: 60px 0 0 60px;"></div>
     </bq-polyter>
     <script type="text/javascript">
       window.addEventListener('WebComponentsReady', function () {
@@ -150,8 +154,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // }
         });
 
-        Polyter.addRoute('/components/bq-polyter/demo/quick', {
-          element: 'product-example'
+        Polyter.addRoute('/components/bq-polyter/demo/:id', {
+          element: 'product-example',
+
+          run: function () {
+            console.log(this.params);
+          }
         });
 
         Polyter.addRoute('/components/bq-polyter/demo/doc', {
