@@ -1,6 +1,27 @@
 # Polyter
 
-An element advanced routing to your polymer apps
+An element providing advanced routing to your polymer apps
+
+## Using it in your application
+
+Start installing it into your aplication with Bower
+
+    bower install bq-polyter
+    
+### Layout configuration
+
+Configure your layout in html. User `region="region-name"` to set drawable regions into your schema. A reverved word to draw your main content is `main`.
+
+    <bq-polyter>
+        <!-- The regions -->
+        <div region="header"></div>
+        <div region="sidebar"></div>
+        <div region="main"></div>
+    </bq-polyter>
+
+Set the default configuration for the layout schema.
+
+TODO
 
 ## Dependencies
 
@@ -14,7 +35,7 @@ Then, go ahead and download the element's dependencies:
     bower install
 
 
-## Playing With Poly-ter
+## Playing With Polyter
 
 If you wish to work Polyter in isolation, we recommend that you use
 [Polyserve](https://github.com/PolymerLabs/polyserve) to keep your element's
@@ -27,15 +48,15 @@ And you can run it via:
     polyserve
 
 Once running, you can preview your element at
-`http://localhost:8080/components/poly-ter/`, where `poly-ter` is the name of the directory containing it.
+`http://localhost:8080/components/bq-polyter/`, where `bq-polyter` is the name of the directory containing it.
 
 
 ## Testing Your Element
 
 Simply navigate to the `/test` directory of your element to run its tests. If
-you are using Polyserve: `http://localhost:8080/components/poly-ter/test/`
+you are using Polyserve: `http://localhost:8080/components/bq-polyter/test/`
 
 ## See the demo
 
 Simply navigate to the `/demo` directory of the element to se the demo in action
-with Polyserve: `http://localhost:8080/components/poly-ter/demo/`
+with Polyserve: `http://localhost:8080/components/bq-polyter/demo/`
