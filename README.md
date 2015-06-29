@@ -13,7 +13,7 @@ An element providing advanced routing to your polymer apps.
 Start installing it into your aplication with Bower
 
     bower install bq-polyter
-    
+
 ## Basic usage
 
 Configure your layout in html. User `region="region-name"` to set drawable regions into your schema. A reverved word to draw your main content is `main`.
@@ -43,7 +43,7 @@ Add a simple route for a polymer element.
             element: 'page-home'
         });
     });
-    
+
 Add route with params.
 
     window.addEventListener('webComponentsReady', function () {
@@ -51,14 +51,14 @@ Add route with params.
             element: 'page-category'
         });
     });
-    
+
 Get params into the polymer element.
 
     Polymer({
         is: 'page-category',
-        
+
         created: function () {
-            
+
             if (this.params.category) {
                 //Make something with the params.
             }
@@ -76,15 +76,15 @@ Define a default extension.
     Polyter.defaultConfig({
         extensions: [polymer-auth, polymer-db]
     });
-    
+
 Define a route extension.
 
     Polyter.addRoute('/cars', {
         element: 'cars-list',
-        
+
         extensions: ['price-calculator']
     });
-    
+
 Accessing to an extension.
 
     //Some script
@@ -96,7 +96,7 @@ Accessing to an extension.
         this.ext['polymer-db'].find(this.params.id);
     }
     ...
-    
+
     //Hooks (explained later)
     before: function () {
         if (!this.ext['polymer-auth'].logged()) {
@@ -104,39 +104,41 @@ Accessing to an extension.
         }
     }
 
+**If your extension needs some configuration add it in before hook, the polymer method `factoryImpl` will be called just after before hook.**
+
 ### Hooks
 
 Polyter have 5 hooks to manage the route lifecycle. You can do anythin here. This hooks can be defined by route and by default configuration (complementary).
 
-* run: this hook is the first callback in the route lifecycle. You have access to the params here.
-* before: here add the extension instances.
-* action: here add the layout and main elements instances.
-* after: here add the layout and main elements rendered instances.
-* stop: this callback is executed when another route is called.
+* **run**: this hook is the first callback in the route lifecycle. You have access to the params here.
+* **before**: here add the extension instances.
+* **action**: here add the layout and main elements instances.
+* **after**: here add the layout and main elements rendered instances.
+* **stop**: this callback is executed when another route is called.
 
     run: function () {
         //this have the route scope with the params
-      
+
         //Access to the params.
         console.log('Route params', this.params);
-      
+
         //Stop the route propagation
         this.stop();
-      
+
         //Redirect to other route (also stop the route propagation)
         this.redirect('/login');
-      
+
         //Get the previous route!
         console.log('Previous route: ' + this.previousRoute);
-      
+
     },
-      
+
     before: function () {
         //Same as above but now we have the extensions injection.
-      
+
         //Get example extension information.
         var doc = this.ext['polymer-db'].find(this.params.id);
-      
+
         if (doc.isValid) {
           // do something
           this.ext.push.send('car-viewed', this.params.id);
@@ -144,43 +146,43 @@ Polyter have 5 hooks to manage the route lifecycle. You can do anythin here. Thi
         else {
           this.redirect('/error-404');
         }
-      
-      
+
+
         // Maintain the route but change the element to render.
         if (!this.ext.auth.isLoggedIn) {
           this.render('my-login', 'main');
         }
-      
+
     },
-      
+
     action: function () {
         //Same as above but now we have the instances of the defined elements
-      
+
         //Get the element instance
         var insPointer = this.instances['cars-list'];
-      
+
         //Comes from other book?
         if (this.previousRoute === this.route) {
           //Add additional information to the element instance
           // so we can render it with other view.
           insPointer.loadAlternativeView();
         }
-      
-      
+
+
     },
-      
+
     after: function () {
         //Here we have the elements rendered
         this.instances['page-demo'].changeTitle('new title'); //rules!
-      
+
         //Also we can do the other things but no this.render()
-      
+
     },
-      
+
     stop: function () {
         //The route has been changed! Put some information
         // here for the next route.
-      
+
         this.ext['local-storage'].setAdditionalInfo({previousCar: this.params.id});
     }
 

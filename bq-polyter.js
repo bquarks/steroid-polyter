@@ -126,7 +126,9 @@ Polymer({
   _callFactoryImpl: function () {
     for (var ext in this.ext) {
       if (this.ext.hasOwnProperty(ext)) {
-        this.ext[ext].factoryImpl.call(this.ext[ext]);
+        if (typeof this.ext[ext].factoryImpl == 'function') {
+          this.ext[ext].factoryImpl.call(this.ext[ext]);
+        }
       }
     }
   },
