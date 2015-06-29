@@ -114,8 +114,6 @@ Polyter have 5 hooks to manage the route lifecycle. You can do anythin here. Thi
 * after: here add the layout and main elements rendered instances.
 * stop: this callback is executed when another route is called.
 
-#### Run
-
     run: function () {
         //this have the route scope with the params
       
