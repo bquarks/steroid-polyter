@@ -21,7 +21,43 @@ Configure your layout in html. User `region="region-name"` to set drawable regio
 
 Set the default configuration for the layout schema.
 
-TODO
+    window.addEventListener('webComponentsReady', function () {
+        Polyter.defaultConfig({
+            layoutElements: {
+                header: 'header-element',
+                sidebar: 'sidebar-element'
+            }
+        });
+    });
+
+Add a simple route for a polymer element.
+
+    window.addEventListener('webComponentsReady', function () {
+        Polyter.addRoute('/', {
+            element: 'page-home'
+        });
+    });
+    
+Add route with params.
+
+    window.addEventListener('webComponentsReady', function () {
+        Polyter.addRoute('/store/:category', function () {
+            element: 'page-category'
+        });
+    });
+    
+Get params into the polymer element.
+
+    Polymer({
+        is: 'page-category',
+        
+        created: function () {
+            
+            if (this.params.category) {
+                //Make something with the params.
+            }
+        }
+    });
 
 ## Dependencies
 
