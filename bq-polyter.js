@@ -11,6 +11,8 @@ Polymer({
 
   _defaultRendered: false,
 
+  _defaultHooks: {},
+
   previousRoute: null,
 
   //Route lifecycle
@@ -29,6 +31,10 @@ Polymer({
   //This hook run before start loading things.
   run: function (route) {
 
+    if (this._defaultHooks.run) {
+      this._defaultHooks.run.call(this);
+    }
+
     if (route && route.run) {
       route.run.call(this);
     }
@@ -39,6 +45,10 @@ Polymer({
   //Here you have the extensions instances
   before: function (route) {
 
+    if (this._defaultHooks.before) {
+      this._defaultHooks.before.call(this);
+    }
+
     if (route && route.before) {
       route.before.call(this);
     }
@@ -48,15 +58,24 @@ Polymer({
 
   //Here you have the element instances
   action: function (route) {
-      if (route && route.action) {
-          route.action.call(this);
-      }
 
-      return this._stopped;
+    if (this._defaultHooks.action) {
+      this._defaultHooks.action.call(this);
+    }
+
+    if (route && route.action) {
+        route.action.call(this);
+    }
+
+    return this._stopped;
   },
 
   //Here the elements are rendered
   after: function (route, routeName) {
+
+    if (this._defaultHooks.after) {
+      this._defaultHooks.after.call(this);
+    }
 
     if (route && route.after) {
       route.after.call(this);
@@ -187,7 +206,7 @@ Polymer({
 
       _this.onStop(routeName);
 
-      _.extend(_this, ctx);
+      _.defaults(_this, ctx);
 
       if (_this.run(route)) {
         return;
@@ -252,8 +271,21 @@ Polymer({
       this.defaultElements = layEl;
     }
 
+    //Default Extensions
     if (options.extensions instanceof Array) {
       this.defaultExtensions = options.extensions;
+    }
+
+    //Default hooks
+    if (typeof options.hooks) {
+      var hooks = options.hooks;
+      for (var hook in hooks) {
+        if (hooks.hasOwnProperty(hook)) {
+          if (typeof hook == 'function') {
+            this._defaultHooks[hook] = hooks[hook];
+          }
+        }
+      }
     }
 
   },
