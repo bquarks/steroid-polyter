@@ -277,11 +277,11 @@ Polymer({
     }
 
     //Default hooks
-    if (typeof options.hooks) {
+    if (options.hooks) {
       var hooks = options.hooks;
       for (var hook in hooks) {
         if (hooks.hasOwnProperty(hook)) {
-          if (typeof hook == 'function') {
+          if (typeof hooks[hook] == 'function') {
             this._defaultHooks[hook] = hooks[hook];
           }
         }

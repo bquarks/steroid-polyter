@@ -43,6 +43,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           },
 
           extensions: [],
+
+          hooks: {
+            before: function () {
+              // this.ext.auth.config();
+              console.log('Hello I\'m a hook!');
+              // this.ext.auth.run();
+            }
+          }
         });
 
         Polyter.addRoute('/components/bq-polyter/demo/', {
