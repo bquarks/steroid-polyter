@@ -123,6 +123,14 @@ Polymer({
 
   },
 
+  _callFactoryImpl: function () {
+    for (var ext in this.ext) {
+      if (this.ext.hasOwnProperty(ext)) {
+        this.ext[ext].factoryImpl.call(this.ext[ext]);
+      }
+    }
+  },
+
   _clearInstances: function (elementName) {
     var instances = Object.getOwnPropertyNames(this.instances),
         def = _.values(this.defaultElements);
@@ -217,6 +225,8 @@ Polymer({
       if (_this.before(route)) {
         return;
       }
+
+      _this._callFactoryImpl();
 
       var elements = route.layout;
       if (elements) {
