@@ -8,7 +8,7 @@ Start installing it into your aplication with Bower
 
     bower install bq-polyter
     
-### Layout configuration
+### Basic usage
 
 Configure your layout in html. User `region="region-name"` to set drawable regions into your schema. A reverved word to draw your main content is `main`.
 
@@ -58,6 +58,8 @@ Get params into the polymer element.
             }
         }
     });
+    
+# Development
 
 ## Dependencies
 
