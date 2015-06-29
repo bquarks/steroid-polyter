@@ -199,7 +199,7 @@ Polymer({
         return;
       }
 
-      var elements = route.layoutElements;
+      var elements = route.layout;
       if (elements) {
         //TODO: Do the logic for the elements here
       }
@@ -243,10 +243,10 @@ Polymer({
   },
 
   defaultConfig: function (options) {
-    //Load layoutElements
+    //Load layout
     if (!options) return;
 
-    var layEl = options.layoutElements;
+    var layEl = options.layout;
 
     if (layEl) {
       this.defaultElements = layEl;
