@@ -24,7 +24,8 @@ Polymer({
   },
 
   redirect: function (route) {
-    this.stop();
+    // this.stop();
+    //TODO: make something here!
     page.redirect(route);
   },
 
