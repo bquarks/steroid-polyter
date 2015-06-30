@@ -10,7 +10,7 @@ An element providing advanced routing to your polymer apps.
 
 ## Using it in your application
 
-Start installing it into your aplication with Bower
+Start installing it into your application with Bower
 
     bower install steroid-polyter
 
@@ -108,7 +108,7 @@ Accessing to an extension.
 
 ### Hooks
 
-Polyter have 5 hooks to manage the route lifecycle. You can do anythin here. This hooks can be defined by route and by default configuration (complementary).
+Polyter have 5 hooks to manage the route lifecycle. You can do anything here. This hooks can be defined by route and by default configuration (complementary).
 
 * **run**: this hook is the first callback in the route lifecycle. You have access to the params here.
 * **before**: here add the extension instances.
