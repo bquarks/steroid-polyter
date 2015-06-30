@@ -1,28 +1,36 @@
 Polymer({
   is: 'steroid-polyter',
 
+  //Routes added container
   routes: {},
 
+  //Polymer elements rendered container
   instances: {},
 
+  //Default elements container.
   defaultElements: {},
 
+  //Default added extensions.
   defaultExtensions: null,
 
   _defaultRendered: false,
 
   _defaultHooks: {},
 
+  //Route called previous actual.
   previousRoute: null,
 
   //Route lifecycle
   _stopped: false,
   _triggered: false,
 
+
+  // Stop the route lifecycle
   stop: function () {
     this._stopped = true;
   },
 
+  //Redirect to another route.
   redirect: function (route) {
     // this.stop();
     //TODO: make something here!
@@ -95,13 +103,13 @@ Polymer({
     }
   },
 
-  // Lifecycle callbacks from polymer
 
   created: function () {
     Polyter = this;
     console.log('### Polyter created ###');
   },
 
+  // Extensions container
   ext: {},
 
   _injectExtensions: function (extName) {
@@ -181,13 +189,15 @@ Polymer({
     this.schema[region ? region : 'main'].appendChild(this.instances[elementName]);
   },
 
+
+  //Load the elements with attr region on it like schema elements.
   loadSchema: function () {
     if (!this.schema) {
       var _this = this;
 
       _this.schema = {};
 
-      _.each(Polymer.dom(_this).querySelectorAll('div[region]'), function (el) {
+      _.each(Polymer.dom(_this).querySelectorAll('*[region]'), function (el) {
         var region = el.attributes.region;
         if (region && region.value) {
           _this.schema[region.value] = el;
@@ -197,6 +207,7 @@ Polymer({
     }
   },
 
+  //Add a route with options.
   addRoute: function (routeName, options) {
     var _this = this;
 
@@ -274,6 +285,7 @@ Polymer({
 
   },
 
+  //Add a default configuration
   defaultConfig: function (options) {
     //Load layout
     if (!options) return;
@@ -303,6 +315,7 @@ Polymer({
 
   },
 
+  //Go to another route with extra options like {trigger: false}.
   go: function (route, options) { //TODO: {trigger: false, ...};
     if (route) {
       //this.stop();
