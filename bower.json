@@ -1,6 +1,6 @@
 {
   "name": "bq-polyter",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "authors": [
     "Mundo Reader S.L"
   ],
@@ -26,9 +26,7 @@
     "url": "git://github.com/bquarks/polyter.git"
   },
   "ignore": [
-    "/.*",
-    "/test/",
-    "/demo/"
+    "/.*"
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
