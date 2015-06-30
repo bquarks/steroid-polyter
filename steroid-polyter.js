@@ -1,5 +1,5 @@
 Polymer({
-  is: 'bq-polyter',
+  is: 'steroid-polyter',
 
   routes: {},
 

@@ -1,8 +1,8 @@
 {
-  "name": "bq-polyter",
-  "version": "1.2.2",
+  "name": "steroid-polyter",
+  "version": "1.3.0",
   "authors": [
-    "Mundo Reader S.L"
+    "bq.com"
   ],
   "description": "An element providing routes handling with polymer",
   "keywords": [
@@ -18,7 +18,7 @@
     "controller",
     "layout"
   ],
-  "main": "bq-polyter.html",
+  "main": "steroid-polyter.html",
   "license": "https://github.com/bquarks/polyter/blob/master/LICENSE",
   "homepage": "https://github.com/bquarks/polyter",
   "repository": {
