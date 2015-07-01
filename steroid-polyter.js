@@ -282,8 +282,14 @@ Polymer({
 
     });
 
-    //TODO: not call everytime!
-    page.start();
+    //TODO: this is not very clean!
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+    this.timeout = setTimeout(function () {
+      console.log('### Polyter Started ###');
+      page.start();
+    }, 0);
 
   },
 
