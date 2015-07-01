@@ -34,7 +34,9 @@ Polymer({
   redirect: function (route) {
     // this.stop();
     //TODO: make something here!
-    page.redirect(route);
+    setTimeout(function () { //Put the redirect at the end of de heap
+      page.redirect(route);
+    }, 0);
   },
 
   //This hook run before start loading things.
