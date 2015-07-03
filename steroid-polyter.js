@@ -230,7 +230,9 @@ Polymer({
 
       _this.onStop(routeName);
 
-      _.defaults(_this, ctx);
+      _.extend(_this, ctx);
+      //TODO: check why params is rewrited by pages!
+      _this.router = ctx;
 
       if (_this.run(route)) {
         return;
@@ -289,7 +291,7 @@ Polymer({
     this.timeout = setTimeout(function () {
       console.log('### Polyter Started ###');
       page.start();
-    }, 0);
+    }, 50);
 
   },
 
