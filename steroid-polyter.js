@@ -252,8 +252,8 @@ Polymer({
       }
 
       if (routeName === _this.previousRoute && _this.instances[route.element]) {
-          console.log(_this.previousRoute, routeName);
-        _.extend(_this.instances[route.element], _this);
+        _this.instances[route.element].params = ctx.params;
+        _this.instances[route.element].router = ctx;
       }
       else {
 
