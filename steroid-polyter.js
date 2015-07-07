@@ -175,7 +175,8 @@ Polymer({
     //TODO: make this better.
     this.instances[elementName].ext = this.ext;
 
-    //_.defaults(this.instances[elementName], this);
+    this.instances[elementName].params = this.params;
+    this.instances[elementName].router = this.router;
   },
 
   _renderDef: function () {
