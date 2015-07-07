@@ -17,6 +17,7 @@ Polymer({
 
   _defaultHooks: {},
 
+  _hashbang: false,
   //Route called previous actual.
   previousRoute: null,
 
@@ -288,9 +289,10 @@ Polymer({
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
+
     this.timeout = setTimeout(function () {
       console.log('### Polyter Started ###');
-      page.start();
+      page.start({hashbang: _this._hashbang});
     }, 50);
 
   },
@@ -323,6 +325,11 @@ Polymer({
       }
     }
 
+    //Load hashband
+    if (options.hashbang) {
+      this._hashbang = true;
+    }
+
   },
 
   //Go to another route with extra options like {trigger: false}.
@@ -332,7 +339,7 @@ Polymer({
       if (options && options.trigger) {
         this._triggered = true;
       }
-      page(route);
+      page.show(route);
     }
   }
 });
