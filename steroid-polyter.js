@@ -175,7 +175,7 @@ Polymer({
     //TODO: make this better.
     this.instances[elementName].ext = this.ext;
 
-    _.defaults(this.instances[elementName], this);
+    //_.defaults(this.instances[elementName], this);
   },
 
   _renderDef: function () {
