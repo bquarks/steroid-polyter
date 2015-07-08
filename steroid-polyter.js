@@ -164,7 +164,9 @@ Polymer({
       if (this.defaultElements.hasOwnProperty(region)) {
         var name = this.defaultElements[region];
 
-        this._instantiate(name);
+        if (name) {
+          this._instantiate(name);
+        }
       }
     }
   },
@@ -184,7 +186,9 @@ Polymer({
       if (this.defaultElements.hasOwnProperty(region)) {
         var name = this.defaultElements[region];
 
-        this._render(name, region);
+        if (name) {
+          this._render(name, region);
+        }
       }
     }
   },
@@ -251,6 +255,8 @@ Polymer({
       var elements = route.layout;
       if (elements) {
         //TODO: Do the logic for the elements here
+        _this.defaultAux = _this.defaultElements;
+        _this.defaultElements = elements;
       }
 
       if (routeName === _this.previousRoute && _this.instances[route.element]) {
@@ -284,6 +290,11 @@ Polymer({
         return;
       }
 
+      if (_this.defaultAux) {
+        _this.defaultElements = _this.defaultAux;
+        _this.defaultAux = null;
+        _this._defaultRendered = false;
+      }
     });
 
     //TODO: this is not very clean!
