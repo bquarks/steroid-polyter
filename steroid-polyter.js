@@ -236,7 +236,7 @@ Polymer({
 
       _this.onStop(routeName);
 
-      _.extend(_this, ctx);
+      //_.extend(_this, ctx);
       //TODO: check why params is rewrited by pages!
       _this.router = ctx;
 
