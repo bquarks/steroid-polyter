@@ -155,6 +155,7 @@ Polymer({
     console.log(diff);
     for (var i = diff.length; i-- > 0;) {
       this.instances[diff[i]].remove();
+      this.instances[diff[i]] = null;
     }
 
   },
