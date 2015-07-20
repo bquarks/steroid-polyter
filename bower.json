@@ -1,6 +1,6 @@
 {
   "name": "steroid-polyter",
-  "version": "1.5.1",
+  "version": "1.5.2",
   "authors": [
     "bq.com"
   ],
@@ -26,7 +26,8 @@
     "url": "git://github.com/bquarks/steroid-polyter.git"
   },
   "ignore": [
-    "/.*"
+    "/.*"c
+
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
