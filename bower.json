@@ -26,7 +26,7 @@
     "url": "git://github.com/bquarks/steroid-polyter.git"
   },
   "ignore": [
-    "/.*"c
+    "/.*"
 
   ],
   "dependencies": {
