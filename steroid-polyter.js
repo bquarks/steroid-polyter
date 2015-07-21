@@ -101,6 +101,10 @@ Polymer({
     this.stopped = false;
     var pRoute = this.routes[this.previousRoute];
 
+    if (this._defaultHooks.stop) {
+      this._defaultHooks.stop.call(this);
+    }
+
     if (this.previousRoute && pRoute && pRoute.stop) {
       pRoute.stop();
     }
