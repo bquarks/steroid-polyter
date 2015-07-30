@@ -57,19 +57,23 @@ Polymer({
   //Here you can put async code and wait for it
   wait: function (route, cb) {
     if (this._defaultHooks.wait) {
-      this._defaultHooks.wait.call(this, function (cb) {
-        if (route && route.wait) {
-          route.wait.call(this, cb);
-        }
-      });
-      return;
-    }
+     this._defaultHooks.wait.call(this, function () {
+       if (route && route.wait) {
+         route.wait.call(this, cb);
+       }
+       else {
+           cb();
+       }
+     });
+     return;
+   }
 
-    if (route && route.wait) {
-      route.wait.call(this, cb);
-    }
-
-    cb();
+   if (route && route.wait) {
+     route.wait.call(this, cb);
+   }
+   else {
+       cb();
+   }
   },
 
   //Here you have the extensions instances
