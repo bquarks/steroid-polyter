@@ -54,6 +54,24 @@ Polymer({
     return this._stopped;
   },
 
+  //Here you can put async code and wait for it
+  wait: function (route, cb) {
+    if (this._defaultHooks.wait) {
+      this._defaultHooks.wait.call(this, function (cb) {
+        if (route && route.wait) {
+          route.wait.call(this, cb);
+        }
+      });
+      return;
+    }
+
+    if (route && route.wait) {
+      route.wait.call(this, cb);
+    }
+
+    cb();
+  },
+
   //Here you have the extensions instances
   before: function (route) {
 
@@ -240,7 +258,6 @@ Polymer({
         _this._triggered = false;
         return;
       }
-      console.log('Entra en la ruta ' + routeName);
 
       _this.onStop(routeName);
 
@@ -254,55 +271,58 @@ Polymer({
 
       _this._injectExtensions(route.extensions);
 
-      if (_this.before(route)) {
-        return;
-      }
-
-      _this._callFactoryImpl();
-
-      var elements = route.layout;
-      if (elements) {
-        //TODO: Do the logic for the elements here
-        _this.defaultAux = _this.defaultElements;
-        _this.defaultElements = elements;
-      }
-
-      if (routeName === _this.previousRoute && _this.instances[route.element]) {
-        _this.instances[route.element].params = ctx.params;
-        _this.instances[route.element].router = ctx;
-      }
-      else {
-
-        //TODO: make this more clean
-        if (!_this._defaultRendered) {
-          _this._instantiateDef();
-        }
-
-        _this._instantiate(route.element);
-
-        if (_this.action(route)) {
+      _this.wait(route, function () {
+        if (_this.before(route)) {
           return;
         }
-        _this._clearInstances(route.element);
 
-        //TODO: make this more clean
-        if (!_this._defaultRendered) {
-          _this._renderDef();
-          _this._defaultRendered = true;
+        _this._callFactoryImpl();
+
+        var elements = route.layout;
+        if (elements) {
+          //TODO: Do the logic for the elements here
+          _this.defaultAux = _this.defaultElements;
+          _this.defaultElements = elements;
         }
 
-        _this._render(route.element, route.region);
-      }
+        if (routeName === _this.previousRoute && _this.instances[route.element]) {
+          _this.instances[route.element].params = ctx.params;
+          _this.instances[route.element].router = ctx;
+        }
+        else {
 
-      if (_this.after(route, routeName)) {
-        return;
-      }
+          //TODO: make this more clean
+          if (!_this._defaultRendered) {
+            _this._instantiateDef();
+          }
 
-      if (_this.defaultAux) {
-        _this.defaultElements = _this.defaultAux;
-        _this.defaultAux = null;
-        _this._defaultRendered = false;
-      }
+          _this._instantiate(route.element);
+
+          if (_this.action(route)) {
+            return;
+          }
+          _this._clearInstances(route.element);
+
+          //TODO: make this more clean
+          if (!_this._defaultRendered) {
+            _this._renderDef();
+            _this._defaultRendered = true;
+          }
+
+          _this._render(route.element, route.region);
+        }
+
+        if (_this.after(route, routeName)) {
+          return;
+        }
+
+        if (_this.defaultAux) {
+          _this.defaultElements = _this.defaultAux;
+          _this.defaultAux = null;
+          _this._defaultRendered = false;
+        }
+      });
+
     });
 
     //TODO: this is not very clean!
