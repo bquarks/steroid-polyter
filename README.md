@@ -111,11 +111,12 @@ Accessing to an extension.
 Polyter have 5 hooks to manage the route lifecycle. You can do anything here. This hooks can be defined by route and by default configuration (complementary).
 
 * **run**: this hook is the first callback in the route lifecycle. You have access to the params here.
+* **wait**: here you can wait for some async resources or responses, this method receive a next param, you must call it to continue with the execution.
 * **before**: here add the extension instances.
 * **action**: here add the layout and main elements instances.
 * **after**: here add the layout and main elements rendered instances.
 * **stop**: this callback is executed when another route is called.
-
+```
     run: function () {
         //this have the route scope with the params
 
@@ -131,6 +132,14 @@ Polyter have 5 hooks to manage the route lifecycle. You can do anything here. Th
         //Get the previous route!
         console.log('Previous route: ' + this.previousRoute);
 
+    },
+    
+    wait: fucntion (next) {
+        //route wait until next is called!
+        this.ext['poly-ajax'].get('resouce', function (res) {
+            //Do something with res here.
+            next();
+        });
     },
 
     before: function () {
@@ -185,7 +194,7 @@ Polyter have 5 hooks to manage the route lifecycle. You can do anything here. Th
 
         this.ext['local-storage'].setAdditionalInfo({previousCar: this.params.id});
     }
-
+```
 # Development
 
 ## Dependencies
