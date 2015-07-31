@@ -4,7 +4,7 @@ An element providing advanced routing to your polymer apps.
  * Lazy load.
  * Complex layout definition.
  * Add elements as extensions (to the main and sections elements rendered).
- * Hooks (run, before, action, after, stop).
+ * Hooks (run, wait, before, action, after, stop).
  * Redirections.
  * Inject data to elements by route.
 
