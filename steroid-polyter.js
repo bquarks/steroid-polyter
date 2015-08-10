@@ -35,6 +35,8 @@ Polymer({
   redirect: function (route) {
     // this.stop();
     //TODO: make something here!
+    this.previousRoute = this.router.path;
+
     setTimeout(function () { //Put the redirect at the end of de heap
       page.redirect(route);
     }, 0);
