@@ -185,7 +185,15 @@ Polymer({
     var diff = _.difference(instances, def);
     console.log(diff);
     for (var i = diff.length; i-- > 0;) {
-      this.instances[diff[i]].remove();
+      var inst = this.instances[diff[i]];
+
+      if (inst.remove) {
+        inst.remove();
+      }
+      else if (inst.parentNode) {
+        inst.parentNode.removeChild(inst);
+      }
+
       delete this.instances[diff[i]]; //TODO: make sure of this!
     }
 
