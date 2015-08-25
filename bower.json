@@ -1,6 +1,6 @@
 {
   "name": "steroid-polyter",
-  "version": "1.6.5",
+  "version": "1.6.6",
   "authors": [
     "bq.com"
   ],
@@ -31,7 +31,7 @@
   ],
   "dependencies": {
     "polymer": "Polymer/polymer#^1.0.0",
-    "bqpage": "bquarks/page.js#~1.6.4",
+    "bqpage": "bquarks/page.js#~1.6.7",
     "lodash": "latest"
   },
   "devDependencies": {
