@@ -269,6 +269,7 @@ Polymer({
     page(routeName, function (ctx) {
 
       if (_this._triggered) {
+        _this.router = ctx;
         _this._triggered = false;
         return;
       }
