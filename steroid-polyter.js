@@ -35,8 +35,8 @@ Polymer({
   redirect: function (route) {
     // this.stop();
     //TODO: make something here!
-    this.previousRoute = this.router.path;
-
+    //this.previousRoute = this.router.path;
+    this.beforeRedirect = this.router.path;
     setTimeout(function () { //Put the redirect at the end of de heap
       page.redirect(route);
     }, 0);
@@ -390,7 +390,7 @@ Polymer({
   go: function (route, options) { //TODO: {trigger: false, ...};
     if (route) {
       //this.stop();
-      if (options && options.trigger) {
+      if (options && options.trigger === false) {
         this._triggered = true;
       }
       page.show(route);
