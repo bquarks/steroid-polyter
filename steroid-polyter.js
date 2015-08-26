@@ -393,6 +393,8 @@ Polymer({
       //this.stop();
       if (options) {
         if (options.silent === true) {
+          this._triggered = true;
+          page.show(route, undefined, undefined, false);
           window.replaceState(undefined, undefined, route);
         }
         else if (options.trigger === false) {
