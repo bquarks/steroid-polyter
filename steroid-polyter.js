@@ -132,7 +132,7 @@ Polymer({
       }
 
       if (pRoute.stop) {
-        pRoute.stop();
+        pRoute.stop.call(this);
       }
     }
   },
@@ -391,10 +391,18 @@ Polymer({
   go: function (route, options) { //TODO: {trigger: false, ...};
     if (route) {
       //this.stop();
-      if (options && options.trigger === false) {
-        this._triggered = true;
+      if (options) {
+        if (options.silent === true) {
+          window.replaceState(undefined, undefined, route);
+        }
+        else if (options.trigger === false) {
+          this._triggered = true;
+          page.show(route);
+        }
       }
-      page.show(route);
+      else {
+        page.show(route);
+      }
     }
   }
 });
