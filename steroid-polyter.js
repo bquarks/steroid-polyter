@@ -404,5 +404,9 @@ Polymer({
         page.show(route);
       }
     }
+  },
+
+  back: function () {
+    window.history.back();
   }
 });
