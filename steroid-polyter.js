@@ -217,7 +217,6 @@ Polymer({
     //TODO: make this better.
     this.instances[elementName].ext = this.ext;
 
-    this.instances[elementName].params = this.params;
     this.instances[elementName].router = this.router;
   },
 
@@ -301,7 +300,6 @@ Polymer({
         }
 
         if (routeName === _this.previousRoute && _this.instances[route.element]) {
-          _this.instances[route.element].params = ctx.params;
           _this.instances[route.element].router = ctx;
         }
         else {
