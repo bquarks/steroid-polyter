@@ -181,9 +181,9 @@ Polymer({
         def = _.values(this.defaultElements);
 
     def.push(elementName);
-    console.log(def, instances);
+
     var diff = _.difference(instances, def);
-    console.log(diff);
+
     for (var i = diff.length; i-- > 0;) {
       var inst = this.instances[diff[i]];
 
@@ -254,6 +254,12 @@ Polymer({
     }
   },
 
+  _updateCtx: function () {
+    for (var inst in this.defaultElements) {
+      inst.router = this.router;
+    }
+  },
+
   //Add a route with options.
   addRoute: function (routeName, options) {
     var _this = this;
@@ -284,6 +290,7 @@ Polymer({
       }
 
       _this._injectExtensions(route.extensions);
+      _this._updateCtx();
 
       _this.wait(route, function () {
         if (_this.before(route)) {
