@@ -255,8 +255,14 @@ Polymer({
   },
 
   _updateCtx: function () {
-    for (var inst in this.defaultElements) {
-      inst.router = this.router;
+    for (var region in this.defaultElements) {
+      if (this.defaultElements.hasOwnProperty(region)) {
+        var name = this.defaultElements[region];
+
+        if (name) {
+          this.instances[name].router = this.router;
+        }
+      }
     }
   },
 
