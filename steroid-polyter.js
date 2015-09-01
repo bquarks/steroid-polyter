@@ -259,7 +259,7 @@ Polymer({
       if (this.defaultElements.hasOwnProperty(region)) {
         var name = this.defaultElements[region];
 
-        if (name) {
+        if (name && this.instances[name]) {
           this.instances[name].router = this.router;
         }
       }
