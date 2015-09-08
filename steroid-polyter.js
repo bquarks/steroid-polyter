@@ -278,6 +278,7 @@ Polymer({
     this.routes[routeName] = route;
     console.log('Adding route! ', routeName);
     page(routeName, function (ctx) {
+      _this.executed = true;
 
       if (_this._triggered) {
         _this.router = ctx;
@@ -352,14 +353,16 @@ Polymer({
     });
 
     //TODO: this is not very clean!
-    if (this.timeout) {
-      clearTimeout(this.timeout);
+    if (!_this.executed) {
+      if (!_this.started) {
+        page.start({hashbang: _this._hashbang});
+        _this.started = true;
+        console.log('### Polyter Started ###');
+      }
+      else {
+        _this.go(window.location.hash);
+      }
     }
-
-    this.timeout = setTimeout(function () {
-      console.log('### Polyter Started ###');
-      page.start({hashbang: _this._hashbang});
-    }, 50);
 
   },
 
@@ -384,7 +387,7 @@ Polymer({
       var hooks = options.hooks;
       for (var hook in hooks) {
         if (hooks.hasOwnProperty(hook)) {
-          if (typeof hooks[hook] == 'function') {
+          if (typeof hooks[hook] === 'function') {
             this._defaultHooks[hook] = hooks[hook];
           }
         }
