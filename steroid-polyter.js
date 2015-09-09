@@ -213,7 +213,7 @@ Polymer({
 
   _instantiate: function (elementName) {
 
-    if (this.instances[elementName]) {
+    if (!this.instances[elementName]) {
       this.instances[elementName] = document.createElement(elementName);
     }
 
