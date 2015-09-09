@@ -363,6 +363,9 @@ Polymer({
         _this.go(window.location.hash);
       }
     }
+    else {
+      page.start({hashbang: _this._hashbang});
+    }
 
   },
 
