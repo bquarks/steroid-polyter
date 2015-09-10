@@ -300,6 +300,7 @@ Polymer({
       }
 
       _this._injectExtensions(route.extensions);
+
       _this._updateCtx();
 
       _this.wait(route, function () {
@@ -367,7 +368,15 @@ Polymer({
       }
     }
     else {
-      page.start({hashbang: _this._hashbang});
+
+      if (this.timeout) {
+        clearTimeout(this.timeout);
+      }
+
+      this.timeout = setTimeout(function () {
+        console.log('### Polyter Started ###');
+        page.start({hashbang: _this._hashbang});
+      }, 70);
     }
 
   },
