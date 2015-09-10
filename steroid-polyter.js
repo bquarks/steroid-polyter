@@ -368,15 +368,7 @@ Polymer({
       }
     }
     else {
-
-      if (this.timeout) {
-        clearTimeout(this.timeout);
-      }
-
-      this.timeout = setTimeout(function () {
-        console.log('### Polyter Started ###');
-        page.start({hashbang: _this._hashbang});
-      }, 70);
+      page.startEvent();
     }
 
   },
