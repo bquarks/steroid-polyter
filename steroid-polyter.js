@@ -30,10 +30,16 @@ Polymer({
   stop: function () {
     this._stopped = true;
   },
+  
+  _unStop: function () {
+    var aux = this._stopped;
+    this._stopped = false;
+    return aux;
+  },
 
   //Redirect to another route.
   redirect: function (route) {
-    // this.stop();
+    this.stop();
     //TODO: make something here!
     //this.previousRoute = this.router.path;
     this.beforeRedirect = this.router.path;
@@ -52,8 +58,7 @@ Polymer({
     if (route && route.run) {
       route.run.call(this);
     }
-
-    return this._stopped;
+    return this._unStop();
   },
 
   //Here you can put async code and wait for it
@@ -89,7 +94,7 @@ Polymer({
       route.before.call(this);
     }
 
-    return this._stopped;
+    return this._unStop();
   },
 
   //Here you have the element instances
@@ -103,7 +108,7 @@ Polymer({
         route.action.call(this);
     }
 
-    return this._stopped;
+    return this._unStop();
   },
 
   //Here the elements are rendered
@@ -117,7 +122,7 @@ Polymer({
       route.after.call(this);
     }
     this.previousRoute = routeName;
-    return this._stopped;
+    return this._unStop();
   },
 
   //Before stop the route
