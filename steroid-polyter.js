@@ -43,7 +43,9 @@ Polymer({
     //TODO: make something here!
     //this.previousRoute = this.router.path;
     this.beforeRedirect = this.router.path;
-    setTimeout(function () { //Put the redirect at the end of de heap
+    var _this = this;
+    setTimeout(function () {
+      _this._unStop();//Put the redirect at the end of de heap
       page.redirect(route);
     }, 0);
   },
