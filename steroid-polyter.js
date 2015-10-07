@@ -288,7 +288,6 @@ Polymer({
     this.routes[routeName] = route;
     console.log('Adding route! ', routeName);
     page(routeName, function (ctx) {
-      _this.executed = true;
 
       if (_this._triggered) {
         _this.router = ctx;
@@ -305,6 +304,8 @@ Polymer({
       if (_this.run(route)) {
         return;
       }
+      
+      _this.executed = true;
 
       _this._injectExtensions(route.extensions);
 
