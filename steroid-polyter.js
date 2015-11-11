@@ -30,7 +30,7 @@ Polymer({
   stop: function () {
     this._stopped = true;
   },
-  
+
   _unStop: function () {
     var aux = this._stopped;
     this._stopped = false;
@@ -276,6 +276,26 @@ Polymer({
     }
   },
 
+  _sendHashEvent: function () {
+    var e;
+
+    if (document.createEvent) {
+      e = document.createEvent("HTMLEvents");
+      e.initEvent("hashchange", true, true);
+    } else {
+      e = document.createEventObject();
+      e.eventType = "hashchange";
+    }
+
+    e.eventName = "hashchange";
+
+    if (document.createEvent) {
+      window.dispatchEvent(e);
+    } else {
+      window.fireEvent("on" + e.eventType, e);
+    }
+  },
+
   //Add a route with options.
   addRoute: function (routeName, options) {
     var _this = this;
@@ -304,12 +324,14 @@ Polymer({
       if (_this.run(route)) {
         return;
       }
-      
+
       _this.executed = true;
 
       _this._injectExtensions(route.extensions);
 
       _this._updateCtx();
+
+      _this._sendHashEvent();
 
       _this.wait(route, function () {
         if (_this.before(route)) {
