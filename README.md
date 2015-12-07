@@ -1,5 +1,7 @@
 # Polyter
 
+[![Join the chat at https://gitter.im/bquarks/steroid-polyter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/bquarks/steroid-polyter?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 An element providing advanced routing to your polymer apps.
  * Lazy load.
  * Complex layout definition.
