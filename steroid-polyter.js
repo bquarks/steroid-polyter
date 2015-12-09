@@ -41,6 +41,9 @@ Polymer({
   redirect: function (route) {
     this.stop();
     //TODO: make something here!
+    if (this.executed && !this.beforeRedirect) {
+      this.executed = false;
+    }
     //this.previousRoute = this.router.path;
     this.beforeRedirect = this.router.path;
     var _this = this;
