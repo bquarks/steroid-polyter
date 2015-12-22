@@ -15,6 +15,12 @@ Polymer({
 
   _defaultRendered: false,
 
+  _renderedLayoutName: null,
+
+  _renderedLayoutEl: null,
+
+  _layouts: {},
+
   _defaultHooks: {},
 
   _hashbang: false,
@@ -40,7 +46,7 @@ Polymer({
   //Redirect to another route.
   redirect: function (route) {
     this.stop();
-    //TODO: make something here!
+
     if (this.executed && !this.beforeRedirect) {
       this.executed = false;
     }
@@ -188,7 +194,7 @@ Polymer({
 
   _clearInstances: function (elementName) {
     var instances = Object.getOwnPropertyNames(this.instances),
-        def = _.values(this.defaultElements);
+        def = _.map(this._layouts[this._renderedLayout].regions, function(obj){return obj.defaultEl;});
 
     def.push(elementName);
 
@@ -210,9 +216,10 @@ Polymer({
   },
 
   _instantiateDef: function () {
-    for (var region in this.defaultElements) {
-      if (this.defaultElements.hasOwnProperty(region)) {
-        var name = this.defaultElements[region];
+    var regions = this._layouts[this._renderedLayout].regions;
+    for (var region in regions) {
+      if (regions.hasOwnProperty(region)) {
+        var name = regions[region].defaultEl;
 
         if (name) {
           this._instantiate(name);
@@ -234,9 +241,11 @@ Polymer({
   },
 
   _renderDef: function () {
-    for (var region in this.defaultElements) {
-      if (this.defaultElements.hasOwnProperty(region)) {
-        var name = this.defaultElements[region];
+    var regions = this._layouts[this._renderedLayout].regions;
+
+    for (var region in regions) {
+      if (regions.hasOwnProperty(region)) {
+        var name = regions[region].defaultEl;
 
         if (name) {
           this._render(name, region);
@@ -246,21 +255,64 @@ Polymer({
   },
 
   _render: function (elementName, region) {
-    this.schema[region ? region : 'main'].appendChild(this.instances[elementName]);
+    this._layouts[this._renderedLayout].regions[region ? region : 'main'].el.appendChild(this.instances[elementName]);
   },
 
+  _removeRederedRegions: function (layout) {
+    var regions = this._layouts[layout].regions;
+    for (var reg in regions) {
+      if (regions.hasOwnProperty(reg)) {
+        regions[reg].el.innerHTML = '';
+      }
+    }
+  },
+
+  _loadLayout: function (layout) {
+    layout = layout || this._layouts.default;
+
+    if (this._renderedLayout !== layout) {
+
+      if (this._renderedLayout) {
+        this._removeRederedRegions(this._renderedLayout);
+        this._layouts[this._renderedLayout].el = this.removeChild(this._renderedLayoutEl);
+      }
+
+      this._renderedLayoutEl = this.appendChild(this._layouts[layout].el);
+      this._renderedLayout = layout;
+    }
+  },
 
   //Load the elements with attr region on it like schema elements.
   loadSchema: function () {
-    if (!this.schema) {
+    if (!this._layouts.schema) {
       var _this = this;
 
-      _this.schema = {};
+      _this._layouts.schema = true;
 
-      _.each(Polymer.dom(_this).querySelectorAll('*[region]'), function (el) {
-        var region = el.attributes.region;
-        if (region && region.value) {
-          _this.schema[region.value] = el;
+      _.each(Polymer.dom(_this).querySelectorAll('*[layout]'), function (el) {
+        var layout = el.attributes.layout;
+        if (layout && layout.value && _this._layouts[layout.value]) {
+
+          if (el.attributes.default) {
+            _this._layouts.default = layout.value;
+          }
+
+          if (!_this._layouts[layout.value].regions) {
+            _this._layouts[layout.value].regions = {};
+          }
+
+          _.each(Polymer.dom(el).querySelectorAll('*[region]'), function (reg) {
+            var region = reg.attributes.region;
+
+            if (region && region.value) {
+              var defaultEl = _this._layouts[layout.value].regions[region.value];
+              _this._layouts[layout.value].regions[region.value] = {};
+              _this._layouts[layout.value].regions[region.value].defaultEl = defaultEl;
+              _this._layouts[layout.value].regions[region.value].el = reg;
+            }
+          });
+
+          _this._layouts[layout.value].el = el;
         }
       });
 
@@ -330,6 +382,8 @@ Polymer({
 
       _this.executed = true;
 
+      _this._loadLayout(route.layout);
+
       _this._injectExtensions(route.extensions);
 
       _this._updateCtx();
@@ -343,11 +397,11 @@ Polymer({
 
         _this._callFactoryImpl();
 
-        var elements = route.layout;
-        if (elements) {
+        var layout = route.layout;
+        if (layout) {
           //TODO: Do the logic for the elements here
-          _this.defaultAux = _this.defaultElements;
-          _this.defaultElements = elements;
+          _this.defaultAux = _this._layouts[layout].regions;
+          // _this.defaultElements = elements;
         }
 
         if (routeName === _this.previousRoute && _this.instances[route.element]) {
@@ -411,10 +465,13 @@ Polymer({
     //Load layout
     if (!options) return;
 
-    var layEl = options.layout;
+    var layouts = options.layouts;
 
-    if (layEl) {
-      this.defaultElements = layEl;
+    //Adding multiple layouts
+    if (layouts) {
+      for (var i = 0; i < layouts.length; i++) {
+        this._layouts[layouts[i].name] = layouts[i];
+      }
     }
 
     //Default Extensions
