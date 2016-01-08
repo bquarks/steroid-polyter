@@ -71,7 +71,7 @@ Get params into the polymer element.
 
 ### Layouts
 
-Layout definition in html
+Layout definition in html, you can use the **default** attribute to have this layout by default without any specification in the routing handling
 
     <steroid-polyter style="position: absolute; width:100%; height:100%;">
       <div layout="main" default>
@@ -85,6 +85,8 @@ Layout definition in html
     </steroid-polyter>
     
 Layout handling in default configuration.
+
+Now, we have the layout configuration by default, here you set the layout name, regions and extensions.
 
     Polyter.defaultConfig({
       layouts: [{
