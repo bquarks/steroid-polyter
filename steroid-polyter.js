@@ -382,7 +382,6 @@ Polymer({
 
       _this.executed = true;
 
-      _this._loadLayout(route.layout);
 
       _this._injectExtensions(route.extensions);
 
@@ -391,6 +390,9 @@ Polymer({
       _this._sendHashEvent();
 
       _this.wait(route, function () {
+
+        _this._loadLayout(route.layout);
+
         if (_this.before(route)) {
           return;
         }
