@@ -347,9 +347,15 @@ Polymer({
   },
 
   _updateCtx: function () {
-    for (var region in this.defaultElements) {
-      if (this.defaultElements.hasOwnProperty(region)) {
-        var name = this.defaultElements[region];
+    if (!this._renderedLayout) {
+      return;
+    }
+
+    var regions = this._layouts[this._renderedLayout].regions;
+
+    for (var region in regions) {
+      if (regions.hasOwnProperty(region)) {
+        var name = regions[region].defaultEl;
 
         if (name && this.instances[name]) {
           this.instances[name].router = this.router;
