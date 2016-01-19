@@ -14,17 +14,20 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Polyter Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <!--<script>
+    <script>
       window.Polymer = window.Polymer || {};
       window.Polymer.dom = 'shadow';
-    </script>-->
+    </script>
 
     <link rel="import" href="../steroid-polyter.html">
     <link rel="import" href="pages/start-page.html">
     <link rel="import" href="pages/product-example.html">
+    <link rel="import" href="pages/modu-le.html">
     <link rel="import" href="layouts/top-navigation.html">
     <link rel="import" href="layouts/side-bar.html">
-
+    <!-- <script type="text/javascript">
+      window.Polymer.dom = 'shadow';
+    </script> -->
   </head>
   <body style="margin: 0; width: 100%; height: 100%;">
     <steroid-polyter style="position: absolute; width:100%; height:100%;">
@@ -36,8 +39,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <div layout="other">
         <div region="main" style="width: 100%; height: 100%;"></div>
       </div>
+
+      <div layout="global">
+
+      </div>
     </steroid-polyter>
     <script type="text/javascript">
+
       window.addEventListener('WebComponentsReady', function () {
         // Polyter.go('home', {trigger:false});
 
@@ -53,7 +61,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
           {
             name: 'other'
-          }],
+          },
+          {
+            name: 'global',
+            element: 'modu-le'
+          }
+          ],
 
           extensions: [],
 

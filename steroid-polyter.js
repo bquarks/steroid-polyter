@@ -10,6 +10,9 @@ Polymer({
   //Default elements container.
   defaultElements: {},
 
+  //Global Modules Rendered
+  modules: {},
+
   //Default added extensions.
   defaultExtensions: null,
 
@@ -267,6 +270,19 @@ Polymer({
     }
   },
 
+  _loadGlobals: function () {
+    var _this = this;
+
+    _this._layouts._global.forEach(function (layout) {
+      _this.appendChild(layout.el);
+      _this.modules[layout.name] = _this.appendChild(layout.el);
+      _this._instantiate(layout.element);
+      _this.modules[layout.name].element = _this.instances[layout.element];
+      delete _this.instances[layout.element];
+      _this.modules[layout.name].appendChild(_this.modules[layout.name].element);
+    });
+  },
+
   _loadLayout: function (layout) {
     layout = layout || this._layouts.default;
 
@@ -292,6 +308,17 @@ Polymer({
       _.each(Polymer.dom(_this).querySelectorAll('*[layout]'), function (el) {
         var layout = el.attributes.layout;
         if (layout && layout.value && _this._layouts[layout.value]) {
+
+          if (_this._layouts[layout.value] && _this._layouts[layout.value].element) {
+
+            if (!_this._layouts._global) {
+              _this._layouts._global = [];
+            }
+
+            _this._layouts._global.push({name: layout.value, el: el, element: _this._layouts[layout.value].element});
+
+            return;
+          }
 
           if (el.attributes.default) {
             _this._layouts.default = layout.value;
@@ -390,6 +417,11 @@ Polymer({
       _this._sendHashEvent();
 
       _this.wait(route, function () {
+
+        if (!_this._globals) {
+          _this._globals = true;
+          _this._loadGlobals();
+        }
 
         _this._loadLayout(route.layout);
 
