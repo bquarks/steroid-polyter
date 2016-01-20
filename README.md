@@ -69,6 +69,57 @@ Get params into the polymer element.
 
 ## Advanced Usage
 
+### Layouts
+
+Layout definition in html, you can use the **default** attribute to have this layout by default without any specification in the routing handling
+
+    <steroid-polyter style="position: absolute; width:100%; height:100%;">
+      <div layout="main" default>
+        <div region="header" style="width: 100%; height: 60px; position: fixed;"></div>
+        <div region="sidebar" style="height: 100%; width: 60px; position: fixed;"></div>
+        <div region="main" style="width: calc( 100% - 60px ); height: calc( 100% - 60px ); position: absolute; margin: 60px 0 0 60px;"></div>
+      </div>
+      <div layout="other">
+        <div region="main" style="width: 100%; height: 100%;"></div>
+      </div>
+    </steroid-polyter>
+    
+Layout handling in default configuration.
+
+Now, we have the layout configuration by default, here you set the layout name, regions and extensions.
+
+    Polyter.defaultConfig({
+      layouts: [{
+        name: 'main',
+        regions: {
+          sidebar: 'side-bar',
+          header: 'top-navigation'
+        },
+        extensions: []
+      },
+      {
+        name: 'other'
+      }],
+      extensions: [],
+      hooks: {
+        before: function () {
+          // this.ext.auth.config();
+          console.log('Hello I\'m a hook!');
+          // this.ext.auth.run();
+        }
+      }
+    });
+    
+Selecting a layout for an specific route
+
+    Polyter.addRoute('/my/route/withLayout', {
+      element: 'product-example',
+      layout: 'other', // With this property we choose the layout to render.
+      run: function () {
+        console.log(this.params);
+      }
+    });
+
 ### Extensions
 
 A Polyter extension is a Polymer component instance without render into dom.

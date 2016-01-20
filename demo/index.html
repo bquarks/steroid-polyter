@@ -14,33 +14,59 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1.0, user-scalable=yes">
     <title>Polyter Demo</title>
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <!--<script>
+    <script>
       window.Polymer = window.Polymer || {};
       window.Polymer.dom = 'shadow';
-    </script>-->
+    </script>
 
     <link rel="import" href="../steroid-polyter.html">
     <link rel="import" href="pages/start-page.html">
     <link rel="import" href="pages/product-example.html">
+    <link rel="import" href="pages/modu-le.html">
     <link rel="import" href="layouts/top-navigation.html">
     <link rel="import" href="layouts/side-bar.html">
-
+    <!-- <script type="text/javascript">
+      window.Polymer.dom = 'shadow';
+    </script> -->
   </head>
   <body style="margin: 0; width: 100%; height: 100%;">
     <steroid-polyter style="position: absolute; width:100%; height:100%;">
-      <div region="header" style="width: 100%; height: 60px; position: fixed;"></div>
-      <div region="sidebar" style="height: 100%; width: 60px; position: fixed;"></div>
-      <div region="main" style="width: calc( 100% - 60px ); height: calc( 100% - 60px ); position: absolute; margin: 60px 0 0 60px;"></div>
+      <div layout="main" default>
+        <div region="header" style="width: 100%; height: 60px; position: fixed;"></div>
+        <div region="sidebar" style="height: 100%; width: 60px; position: fixed;"></div>
+        <div region="main" style="width: calc( 100% - 60px ); height: calc( 100% - 60px ); position: absolute; margin: 60px 0 0 60px;"></div>
+      </div>
+      <div layout="other">
+        <div region="main" style="width: 100%; height: 100%;"></div>
+      </div>
+
+      <div layout="global">
+
+      </div>
     </steroid-polyter>
     <script type="text/javascript">
+
       window.addEventListener('WebComponentsReady', function () {
         // Polyter.go('home', {trigger:false});
 
         Polyter.defaultConfig({
-          layout: {
-            sidebar: 'side-bar',
-            header: 'top-navigation'
+          layouts: [{
+            name: 'main',
+            regions: {
+              sidebar: 'side-bar',
+              header: 'top-navigation'
+            },
+            extensions: []
           },
+
+          {
+            name: 'other'
+          },
+          {
+            name: 'global',
+            element: 'modu-le'
+          }
+          ],
 
           extensions: [],
 
@@ -53,10 +79,10 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           }
         });
 
-        Polyter.addRoute('/bower_components/steroid-polyter/demo/index.html', {
+        Polyter.addRoute('/components/steroid-polyter/demo/index.html', {
 
           element: 'start-page',
-
+          layout: 'main',
           // layoutElements: {
           //   sidebar: 'visor-menu'
           // },
@@ -162,9 +188,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           // }
         });
 
-        Polyter.addRoute('/bower_components/steroid-polyter/demo/:id', {
+        Polyter.addRoute('/components/steroid-polyter/demo/:id', {
           element: 'product-example',
-
+          layout: 'other',
           run: function () {
             console.log(this.params);
           }
