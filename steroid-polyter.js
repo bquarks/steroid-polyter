@@ -29,6 +29,7 @@ Polymer({
   _hashbang: false,
   //Route called previous actual.
   previousRoute: null,
+  currentRoute: null,
 
   //Route lifecycle
   _stopped: false,
@@ -414,7 +415,7 @@ Polymer({
       }
 
       _this.executed = true;
-
+      _this.currentRoute = routeName;
 
       _this._injectExtensions(route.extensions);
 
