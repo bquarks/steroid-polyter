@@ -480,6 +480,11 @@ Polymer({
           _this.defaultAux = null;
           _this._defaultRendered = false;
         }
+
+        if (!_this._eStarted) {
+            _this._eStarted = true;
+            page.startEvent();
+        }
       });
 
     });
@@ -496,6 +501,7 @@ Polymer({
       }
     }
     else {
+      _this._eStarted = true;
       page.startEvent();
     }
 
