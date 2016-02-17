@@ -47,11 +47,13 @@ Polymer({
     return aux;
   },
 
+  notLoaded: true,
+
   //Redirect to another route.
   redirect: function (route) {
     this.stop();
 
-    if (this.executed && !this.beforeRedirect) {
+    if (this.executed && this.notLoaded) {
       this.executed = false;
     }
     //this.previousRoute = this.router.path;
@@ -504,6 +506,14 @@ Polymer({
       _this._eStarted = true;
       page.startEvent();
     }
+
+    if (_this.loadTimeout) {
+        clearTimeout(_this.loadTimeout);
+    }
+
+    _this.loadTimeout = setTimeout(function () {
+        _this.notLoaded = false;
+    }, 100);
 
   },
 
