@@ -162,7 +162,6 @@ Polymer({
 
   created: function () {
     Polyter = this;
-    console.log('### Polyter created ###');
   },
 
   // Extensions container
@@ -397,7 +396,7 @@ Polymer({
     var route = options;
 
     this.routes[routeName] = route;
-    console.log('Adding route! ', routeName);
+    
     page(routeName, function (ctx) {
 
       if (_this._triggered) {
@@ -496,7 +495,6 @@ Polymer({
       if (!_this.started) {
         page.start({hashbang: _this._hashbang});
         _this.started = true;
-        console.log('### Polyter Started ###');
       }
       else {
         _this.go(window.location.hash);
